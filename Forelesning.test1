@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<body>      
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://youtube.com/iframe_api"></script>
+    <script src ="Assignment13.js"></script>  
+</head>
+<div id= MyPlayer> 
+    </div>
+    
+<button type="button" id= "button" onclick= "playPauseButton()">Play</button>
+<input type="text" id="adressInput">
+<button type="button" id= "Load" onclick = "load()">Load</button>
+</body>
+</html>
