@@ -12,7 +12,7 @@ function preload(){
     game.load.image("kule","assets/kule.png");
     game.load.image("BG","assets/BG.png");
     game.load.image("cloud","assets/cloud.png");
-    game.load.image("ground","assets/12round.png");
+    game.load.image("ground","assets/ground.png");
     game.load.spritesheet("horsie","assets/horsie.png",150,75);
 }
 
