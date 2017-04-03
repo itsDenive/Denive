@@ -27,6 +27,7 @@ function create(){
     
     cursors = game.input.keyboard.createCursorKeys();
     
+    
 //CREATE GROUND
     platforms = game.add.group();
     platforms.enableBody = true;
@@ -36,11 +37,13 @@ function create(){
     ground.body.immovable = true;
     
     
- //CREATE CLOUDS
-    var ledge = platforms.create(500,200,"cloud");
+ //CREATE PLATFORMS
+    var ledge = platforms.create(290,300,"cloud");
     ledge.body.immovable = true;
-   
     
+    var ledge2 = platforms.create(350,400,"cloud");
+    ledge2.body.immovable = true;
+ 
     
  //CREATE OBJEKT (Kuler)
     
@@ -56,7 +59,7 @@ function create(){
    
     
  //CREATE PLAYER
-	player = game.add.sprite(32, game.world.height - 150, "horsie");
+	player = game.add.sprite(game.world.height - 150, "horsie");
     game.physics.arcade.enable(player);
     
     player.body.bounce.y = 0.1;
@@ -73,9 +76,19 @@ function create(){
 
 function update(){
 	
-    game.physics.arcade.collide(player,platforms);
-    game.physics.arcade.collide(kuler, platforms);
-    game.physics.arcade.overlap(player, kuler, TaKuler, null, this);
+	game.physics.arcade.collide(player,platforms);
+    game.physics.arcade.collide(kuler, platforms); 
+    
+	/*
+	var standing = this.player.body.blocked.down ||
+	this.player.body.touching.down;
+	
+	if (!standing && this.wasStanding) { this.edgeTimer = this.time.time + 250; }
+	
+	//CAMERA?
+	this.sky.tilePostition.y = -(this.camera.y * 0.7);
+	
+    game.physics.arcade.overlap(player, kuler, TaKuler, null, this); */
     
     
     player.body.velocity.x = 0;
