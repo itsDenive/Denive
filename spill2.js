@@ -13,7 +13,7 @@ function preload() {
 
 var cursors;
 var map;
-var coins; 
+var coins;
 var player;
 var layer;
 
@@ -25,7 +25,7 @@ function create() {
 	cursors = game.input.keyboard.createCursorKeys();
 	
     map = game.add.tilemap('map');
-    map.addTilesetImage('tilesets'); 
+    map.addTilesetImage('tilesets');
     map.setCollisionBetween(1, 12);
     
     layer = map.createLayer('Tile Layer 1');
@@ -50,12 +50,13 @@ function create() {
     
     player.animations.add("left",[0,1,2,3,4,5,6,7,8,9,10,11],35,true);
     player.animations.add("right",[25,24,23,22,21,20,19,18,17,16,15,14],35,true); 
-
+    
     //COINS
     coins = game.add.group();
     coins.enableBody = true;
     
-    map.createFromObjects('Object Layer 1', 34, 'coin', 0, true, false, coins);
+    map.createFromObjects('Object Layer 1', 103, 'coin', 0, true, false, coins);
+    map.createFromObjects('Object Layer 1', 101, 'coin', 0, true, false, coins);
     
     coins.callAll('animations.add', 'animations', 'spin', [0, 1, 2, 3, 4, 5], 10, true);
     coins.callAll('animations.play', 'animations', 'spin');
