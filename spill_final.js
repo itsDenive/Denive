@@ -26,7 +26,7 @@ var lives = null;
 
 var victorytext;
 var deathtext;
-
+ 
 var score = 0;
 var scoreText;
 
@@ -99,18 +99,18 @@ function create() {
     	
     	function moveBigEnemy(){
     		if(bigEnemy.body.x<player.body.x){
-    			bigEnemy.body.velocity.x = 100;
+    			bigEnemy.body.velocity.x = 75;
     			bigEnemy.animations.play("left");
     		}
     		else{
-    			bigEnemy.body.velocity.x = -100;
+    			bigEnemy.body.velocity.x = -75;
     			bigEnemy.animations.play("right");
     		}
     		if(bigEnemy.body.y<player.body.y){
-    			bigEnemy.body.velocity.y = 100;
+    			bigEnemy.body.velocity.y = 75;
     		}
     		else{
-    			bigEnemy.body.velocity.y = -100;
+    			bigEnemy.body.velocity.y = -75;
     		}
     	}
 	}
