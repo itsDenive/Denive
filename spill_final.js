@@ -220,7 +220,7 @@ function collectCoin(player, coin) {
     coin.kill();
 	score += 10
 	scoreText.text = 'Score: ' + score;
-	if(score == 250) {
+	if(score == 500) {
 		victorytext.visible = 1;
 		game.paused = true;
 	}
