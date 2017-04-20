@@ -8,6 +8,7 @@ function preload() {
     game.load.spritesheet('coin', 'assets/coin.png', 32,32);
     game.load.spritesheet("horsie","assets/horsie.png",150,75);
 	game.load.spritesheet("enemy","assets/enemy_slime.png",49,43);
+	game.load.spritesheet("enemy2","assets/enemy2.png",49,50);
 	game.load.image("heart_full","assets/heart_full.png");
 	game.load.image("meny","assets/meny.png");
 
@@ -21,7 +22,7 @@ var player;
 var layer;
 var enemies;
 var livesCounter = 4;
-var lives = null;
+var lives = null; 
 
 var victorytext;
 var deathtext;
@@ -90,7 +91,7 @@ function create() {
 	createBigEnemy();
 	
 	function createBigEnemy(){
-		var bigEnemy = bigEnemies.create(800, game.world.height -300, 'enemy')
+		var bigEnemy = bigEnemies.create(800, game.world.height -300, 'enemy2')
 		bigEnemy.animations.add("left",[19,18,17,16,15,14,13,12,11,10],35,true);
     	bigEnemy.animations.add("right",[9,8,7,6,5,4,3,2,1],35,true);
     	
@@ -225,7 +226,7 @@ function collectCoin(player, coin) {
 	}
 
 }
-function TaDMG (player, enemy) {
+function TaDMG (player, enemy, bigEnemies) {
 
     enemies.remove(enemy);
 	
