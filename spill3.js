@@ -9,7 +9,7 @@ function preload() {
     game.load.spritesheet("horsie","assets/horsie.png",150,75);
 	game.load.spritesheet("enemy","assets/enemy_slime.png",49,43);
 	game.load.image("heart_full","assets/heart_full.png");
-	game.load.image("heart_broken","assets/heart_broken.png");
+	game.load.image("meny","assets/meny.png");
 
 }
 
@@ -22,7 +22,13 @@ var layer;
 var enemies;
 var livesCounter = 4;
 var lives = null;
-var lives_broken;
+
+var victorytext;
+var deathtext;
+
+var score = 0;
+var scoreText;
+
 
 
 function create() {
@@ -49,6 +55,7 @@ function create() {
     player.body.bounce.y = 0.1;
     player.body.gravity.y = 300;
     player.body.collideWorldBounds = true;
+	player.direction = 0;
     
     game.physics.arcade.enable(player);
     game.camera.follow(player);
@@ -73,7 +80,7 @@ function create() {
 	enemies = game.add.group();
 	enemies.enableBody = true;
 	
-	for (var i = 0; i < 8; i++){
+	for (var i = 0; i < 5; i++){
 		createEnemies();
 	}
 	
@@ -86,6 +93,7 @@ function create() {
 		game.physics.arcade.enable(enemy);
 		enemy.animations.add("left",[19,18,17,16,15,14,13,12,11,10],35,true);
     	enemy.animations.add("right",[9,8,7,6,5,4,3,2,1],35,true);
+		//enemy.add(Math.random,Math.random);
 		
 		
 		setInterval(moveEnemy,5000);
@@ -107,36 +115,34 @@ function create() {
 		}
 	}
 	}
-
-//LIVES
 	
-	var x = 575;
-	var y = 1130;
+	//MENY
+	var menysprite = game.add.sprite(0,0);menysprite.fixedToCamera = true;
+	var meny = game.add.sprite(0,485,'meny');menysprite.addChild(meny);
 	
-	for (var i = 0; i < 4; i++){
-		var heart_broken = game.add.sprite(
-		x - 100 + 33 * i,
-		y,
-		'heart_broken'
-		);
-		heart_broken.fixedToCamera = true;
-		heart_broken.anchor.setTo(0.5, 0.5);
-	}
+	//DEATHTEXT
+	var deathsprite = game.add.sprite(0,0);deathsprite.fixedToCamera = true;
+	deathtext = game.add.text(520,530,"You are dead",{fontSize: "32px", fill: "#FFF"});deathsprite.addChild(deathtext);
+	deathtext.visible = 0;
 	
+	//VICTORYTEXT
+	var victorysprite = game.add.sprite(0,0);victorysprite.fixedToCamera = true;
+	victorytext = game.add.text(520,530,"Winner",{fontSize: "32px", fill: "#FFF"});victorysprite.addChild(victorytext);
+	victorytext.visible = 0;
 	
+	//SCORE
+	var scorescore = game.add.sprite(0,0);scorescore.fixedToCamera = true;
+	scoreText = game.add.text(300,530,"Score: 0",{fontSize: "32px", fill: "#FFF"});scorescore.addChild(scoreText);
+	
+	//LIVES
 	this.lives = this.add.group();
 	
 	for (var i = 0; i < 4; i++){
-		var heart_full = this.lives.create(
-		x - 100 + 33 * i,
-		y,
-		'heart_full'
-		);
-		heart_full.fixedToCamera = true;
-		heart_full.anchor.setTo(0.5, 0.5);
-	}
-	  
-
+	var heart = this.lives.create(0 + 30 * i,
+		0);heart.fixedToCamera = true;
+	var heartspawn = game.add.sprite(50 + 30 * i,
+		530,'heart_full');heart.addChild(heartspawn);
+	}	
 }
 
 function update() {
@@ -149,31 +155,44 @@ function update() {
 	 game.physics.arcade.collide(enemies, layer);
 
     player.body.velocity.x = 0;
-    
+	
+	if (cursors.up.isDown && player.body.onFloor()) {
+        player.body.velocity.y = -350;
+    }
+
     if(cursors.left.isDown){
         player.body.velocity.x = -300;
         player.animations.play("left");
+		player.direction = 1;
     }
     
     else if(cursors.right.isDown){
         player.body.velocity.x = 300;
         player.animations.play("right");
+		player.direction = 0;
     }
     
-    else{
+    else if(player.direction == 1){
+        player.animations.stop();
+        player.frame = 12;
+    }
+	
+	else if(player.direction == 0){
         player.animations.stop();
         player.frame = 13;
     }
     
-    if (cursors.up.isDown && player.body.onFloor()) {
-        player.body.velocity.y = -350;
-    }
-
 }
 
 function collectCoin(player, coin) {
 
     coin.kill();
+	score += 10
+	scoreText.text = 'Score: ' + score;
+	if(score == 40) {
+		victorytext.visible = 1;
+		game.paused = true;
+	}
 
 }
 function TaDMG (player, enemy) {
@@ -191,13 +210,8 @@ function TaDMG (player, enemy) {
 	console.log(livesCounter);
 	
 	if(livesCounter == 0) {
-		var dieText = this.game.add.text(game.camera.width / 2, game.camera.height / 2, "Score: 0", {
-        font: "48px Arial",
-        fill: "#ff0044",
-        align: "left"
-    });
-    dieText.fixedToCamera = false;
-    dieText.setText("YOU DIED");
+		deathtext.visible = 1;
+    
 	player.kill();
 	}
 }
