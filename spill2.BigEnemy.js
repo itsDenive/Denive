@@ -8,7 +8,7 @@ function preload() {
     game.load.spritesheet('coin', 'assets/coin.png', 32,32);
     game.load.spritesheet("horsie","assets/horsie.png",150,75);
 	game.load.spritesheet("enemy","assets/enemy_slime.png",49,43);
-	game.load.spritesheet("enemy2","assets/enemy2.png",49,50);
+	game.load.spritesheet("enemy2","assets/biggie.png",49,50);
 	game.load.image("heart_full","assets/heart_full.png");
 	game.load.image("meny","assets/meny.png");
 
